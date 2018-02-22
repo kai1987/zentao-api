@@ -1,5 +1,5 @@
 # zentao-api
-For zentao http api.
+Golang zentao http api.
 
 ## Features that implemented
 1. Auto Login
