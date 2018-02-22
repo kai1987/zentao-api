@@ -20,7 +20,7 @@ var defaultLog = log.New(os.Stdout, "zentaoapi", 1)
 func init() {
 	raw, err := ioutil.ReadFile("./config.json")
 	if err != nil {
-		fmt.Printf("err = %+v\n", err)
+		//fmt.Printf("err = %+v\n", err)
 		return
 	}
 	err = json.Unmarshal(raw, Conf)

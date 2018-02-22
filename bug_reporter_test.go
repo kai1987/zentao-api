@@ -15,7 +15,13 @@ var (
 
 func TestCreateBug(t *testing.T) {
 	Login()
-	params := BuildParamsFull(product, project, module, 3, 3, 0, 0, assignedTo, bugType, "这是一个测试api", "步骤是什么 ...", "linux", "chrome", "red", "2018-02-23", "")
+	steps := `
+	aaaa
+	bbbb
+	eeee
+		eeeeffff
+	`
+	params := BuildParamsFull(product, project, module, 3, 3, 0, 0, assignedTo, bugType, "这是一个测试apiaa", steps, "linux", "chrome", "red", "2018-02-23", "")
 	ret, err := New(product, 0, 0, params)
 	if err != nil {
 		fmt.Printf("  err:%v", err)

@@ -26,6 +26,7 @@ func New(productID, branch, moduleID int, params url.Values) ([]byte, error) {
 
 //BuildParamsBrief build a brief bug params
 func BuildParamsBrief(product, project, module, pri int, assignedTo, bugType, title, steps string) url.Values {
+	steps = fmt.Sprintf("<pre class=\"prettyprint\">%s</pre>", steps)
 	return url.Values{
 		"product":       {strconv.Itoa(product)},
 		"project":       {strconv.Itoa(project)},
