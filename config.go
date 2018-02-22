@@ -14,7 +14,7 @@ type ZenTaoConfig struct {
 	Password string
 }
 
-var conf = &ZenTaoConfig{}
+var Conf = &ZenTaoConfig{}
 var defaultLog = log.New(os.Stdout, "zentaoapi", 1)
 
 func init() {
@@ -23,7 +23,7 @@ func init() {
 		fmt.Printf("err = %+v\n", err)
 		return
 	}
-	err = json.Unmarshal(raw, conf)
+	err = json.Unmarshal(raw, Conf)
 	if err != nil {
 		fmt.Printf("err when unmarshal= %+v\n", err)
 		return

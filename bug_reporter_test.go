@@ -5,10 +5,6 @@ import (
 	"testing"
 )
 
-func TestGetSession(t *testing.T) {
-	Login()
-}
-
 var (
 	product    int    = 4
 	project    int    = 5
@@ -18,7 +14,8 @@ var (
 )
 
 func TestCreateBug(t *testing.T) {
-	params := BuildParams(product, project, module, assignedTo, bugType, "这是一个测试ok...")
+	Login()
+	params := BuildParamsFull(product, project, module, 3, 3, 0, 0, assignedTo, bugType, "这是一个测试api", "步骤是什么 ...", "linux", "chrome", "red", "2018-02-23", "")
 	ret, err := New(product, 0, 0, params)
 	if err != nil {
 		fmt.Printf("  err:%v", err)

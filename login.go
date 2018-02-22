@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
+	"strings"
 
 	"golang.org/x/net/publicsuffix"
 )
@@ -29,7 +30,7 @@ func getSession() {
 		Jar: jar,
 	}
 
-	resp, err := client.Get(fmt.Sprintf("%s/?m=api&f=getSessionID&t=json", conf.Host))
+	resp, err := client.Get(fmt.Sprintf("%s/?m=api&f=getSessionID&t=json", Conf.Host))
 	if err != nil {
 		fmt.Printf("err = %+v\n", err)
 		return
@@ -57,27 +58,28 @@ func getSession() {
 
 func Login() {
 	getSession()
-	u, err := url.Parse(conf.Host)
+	u, err := url.Parse(Conf.Host)
 
 	cookies := []*http.Cookie{
 		&http.Cookie{Name: "keepLogin", Value: "on"},
-		&http.Cookie{Name: "za", Value: "liangkai"},
-		&http.Cookie{Name: "zp", Value: "1db9171473f8cd6d3712895b1ea3e06c262c5a5e"},
 	}
 
 	client.Jar.SetCookies(u, cookies)
+	loginUrl := fmt.Sprintf("%s/index.php?m=user&f=login&t=json&sid=%s", Conf.Host, sessionObj.SessionID)
 
-	resp, err := client.Get(fmt.Sprintf("%s/index.php?m=user&f=login&t=json&sid=%s", conf.Host, sessionObj.SessionID))
+	postReader := strings.NewReader(url.Values{"account": []string{"liangkai"}, "password": []string{"123456"}}.Encode())
+
+	resp, err := client.Post(loginUrl, "application/x-www-form-urlencoded", postReader)
 	if err != nil {
 		fmt.Printf("err = %+v\n", err)
 		return
 	}
 
-	respJson, err := ioutil.ReadAll(resp.Body)
+	//respJson, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
-	fmt.Printf("respJson = %s", respJson)
+	//fmt.Printf("login respJson = %s", respJson)
 
-	for _, cookie := range client.Jar.Cookies(u) {
-		fmt.Printf("  %s: %s\n", cookie.Name, cookie.Value)
-	}
+	//for _, cookie := range client.Jar.Cookies(u) {
+	//fmt.Printf("  %s: %s\n", cookie.Name, cookie.Value)
+	//}
 }
