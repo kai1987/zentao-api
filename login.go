@@ -9,6 +9,7 @@ import (
 	"net/http/cookiejar"
 	"net/url"
 	"strings"
+	"time"
 
 	"golang.org/x/net/publicsuffix"
 )
@@ -27,7 +28,8 @@ func getSession() {
 		log.Fatal(err)
 	}
 	client = &http.Client{
-		Jar: jar,
+		Jar:     jar,
+		Timeout: time.Second * 5,
 	}
 
 	resp, err := client.Get(fmt.Sprintf("%s/?m=api&f=getSessionID&t=json", Conf.Host))
