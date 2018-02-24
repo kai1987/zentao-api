@@ -10,8 +10,6 @@ import (
 	"net/url"
 	"strings"
 	"time"
-
-	"golang.org/x/net/publicsuffix"
 )
 
 type SessionObj struct {
@@ -23,7 +21,8 @@ var sessionObj SessionObj
 var client *http.Client
 
 func getSession() {
-	jar, err := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List})
+	//jar, err := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List})
+	jar, err := cookiejar.New(&cookiejar.Options{})
 	if err != nil {
 		log.Fatal(err)
 	}
