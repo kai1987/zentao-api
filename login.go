@@ -68,7 +68,7 @@ func Login() {
 	client.Jar.SetCookies(u, cookies)
 	loginUrl := fmt.Sprintf("%s/index.php?m=user&f=login&t=json&sid=%s", Conf.Host, sessionObj.SessionID)
 
-	postReader := strings.NewReader(url.Values{"account": []string{"liangkai"}, "password": []string{"123456"}}.Encode())
+	postReader := strings.NewReader(url.Values{"account": []string{Conf.Account}, "password": []string{Conf.Password}}.Encode())
 
 	resp, err := client.Post(loginUrl, "application/x-www-form-urlencoded", postReader)
 	if err != nil {
