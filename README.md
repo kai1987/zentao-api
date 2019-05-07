@@ -9,6 +9,3 @@ Golang zentao http api.
 Change config_default.json to config.json and fill host,account,password. Or just set zentaoapi.Conf
 
 See bug_reporter_test.go
-
-
-
